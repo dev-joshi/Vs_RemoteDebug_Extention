@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="RemoteDebug.ToolWindows.ToolWindowControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300" MinHeight="300" MaxHeight="300"
+             Width="420" MinWidth="420" MaxWidth="420"
+             Name="HubToolWindow" >
+    <Border BorderBrush="#FF647483" BorderThickness="1" CornerRadius="20" Background="White">
+        <Grid>
+            <Image x:Name="HubLogoPng" Source="/RemoteDebug;component/Resources/hub_logo.png" Stretch="Fill" Margin="10,10,358,238"/>
+            <TextBox x:Name="Title" TextWrapping="Wrap" Text="Remote Debugging Tool" Margin="101,19,101,263" BorderThickness="0,0,0,0" FontWeight="Bold"/>
+            <TabControl x:Name="TabControl" Margin="10,65,10,10" BorderBrush="#FF0477B3">
+                <TabItem Name="PrerequisitesTab" Header="Prerequisites" Background="#FF7CCCEC" IsEnabled="True" IsSelected="True">
+                    <Grid Background="White">
+                        <Label x:Name="PrerequisitesLabel" Content="In order to remote debug, you will need a remote windows host.&#10;Please spawn a host and run the following commands &#10;on the remote host with admin permissions :" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="59" Width="372"/>
+                        <TextBox x:Name="PrerequisiteCommands" HorizontalAlignment="Center" Margin="0,74,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="372" Background="#FFE3E5EA" Height="86"/>
+                        <Button Content="Completed" x:Name="MoveToRemoteHost" Margin="136,165,136,10" Height="20" Background="#FF7CCCEC" Click="MoveToRemoteHost_Click"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Name="RemoteHostTab" Header="Remote Host" Background="#FF7CCCEC" IsEnabled="False">
+                    <Grid Background="White">
+                        <Label x:Name="RemoteMachineLabel" Content="Enter the remote machine details:" Margin="10,10,196,165" Height="20" Padding="0,0,0,0"/>
+                        <Label x:Name="RemoteHostLabel" Content="Host Name or IP" Margin="16,35,276,140" Width="100" Height="20" Padding="0,0,0,0" RenderTransformOrigin="0.193,0.583"/>
+                        <Label x:Name="UserNameLabel" Content="Admin User" Margin="16,60,310,115" Height="20" Padding="0,0,0,0"/>
+                        <Label x:Name="PasswordLabel" Content="Password" Margin="16,85,276,90" Width="100" Height="20" Padding="0,0,0,0"/>
+                        <TextBox x:Name="HostName" TextWrapping="Wrap" Margin="116,35,126,140" Width="150" BorderThickness="2,2,2,2" BorderBrush="#FF0477B3" Height="20" MaxHeight="20" ForceCursor="True"/>
+                        <TextBox x:Name="UserName" TextWrapping="Wrap" Margin="116,60,126,115" Width="150" BorderThickness="2,2,2,2" BorderBrush="#FF0477B3" Height="20" MaxHeight="20"/>
+                        <PasswordBox x:Name="Password" Margin="116,85,126,90" Width="150" BorderThickness="2,2,2,2" BorderBrush="#FF0477B3" Height="20" MaxHeight="20"/>
+                        <TextBox x:Name="RemoteError" Text="" Margin="49,135,43,40" Height="20" Padding="0" FontWeight="Bold" Foreground="Red" IsReadOnly="True" BorderThickness="0"/>
+                        <TextBox x:Name="RemoteInfo" Text="" Margin="49,110,43,65" Height="20" Padding="0" FontWeight="Bold" Foreground="#FF0477B3" IsReadOnly="True" BorderThickness="0"/>
+                        <Button Content="Test Connection" x:Name="TestConnection" Margin="35,165,239,10" Height="20" Background="#FF7CCCEC" Click="TestConnection_Click" />
+                        <Button Content="Completed" x:Name="MoveToSetup" Margin="238,165,35,10" Height="20" Background="#FF7CCCEC" Click="MoveToSetup_Click" IsEnabled="False"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Name="SetupTab" Header="Setup" Background="#FF7CCCEC" IsEnabled="False">
+                    <Grid Background="White">
+                        <Label x:Name="RemoteSetupHostNameLable" Content="Setting Up remote debugging for :" HorizontalAlignment="Left" Margin="10,10,0,0" Height="20" Padding="0" VerticalAlignment="Top" Width="186"/>
+                        <TextBox x:Name="RemoteSetupHostName" HorizontalAlignment="Left" Margin="201,10,0,0" Text="TextBox" VerticalAlignment="Top" Width="119" BorderThickness="2,2,2,2" BorderBrush="#FF0477B3" Height="20" MaxHeight="20" IsEnabled="False"/>
+                        <Label x:Name="PortIndicator" Content=":" HorizontalAlignment="Left" Margin="323,7,0,0" VerticalAlignment="Top" Height="20" Padding="0" FontFamily="Segoe UI Black" FontSize="16" FontWeight="Bold" />
+                        <TextBox x:Name="RemoteSetupPort" HorizontalAlignment="Left" Margin="331,10,0,0" Text="4024" VerticalAlignment="Top" Width="50" BorderThickness="2,2,2,2" BorderBrush="#FF0477B3" Height="20" MaxHeight="20"/>
+                        <CheckBox x:Name="SystemContext" Content="Start in System Context" HorizontalAlignment="Left" Margin="203,35,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                        <TextBox x:Name="SetupInfo" Text="" Margin="46,78,46,97" Height="20" Padding="0" FontWeight="Bold" Foreground="#FF0477B3" IsReadOnly="True" BorderThickness="0"/>
+                        <TextBox x:Name="SetupError" Text="" Margin="46,103,46,72" Height="20" Padding="0" FontWeight="Bold" Foreground="Red" IsReadOnly="True" BorderThickness="0"/>
+                        <Button Content="Setup" x:Name="Setup" Margin="35,165,239,10" Height="20" Background="#FF7CCCEC" Click="Setup_Click" />
+                        <Button Content="Completed" x:Name="MoveToDeploy" Margin="238,165,35,10" Height="20" Background="#FF7CCCEC" Click="MoveToDeploy_Click" IsEnabled="False"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Name="DeployTab" Header="Deploy" Background="#FF7CCCEC" IsEnabled="False">
+                    <Grid Background="White">
+                        <Label x:Name="AttachLabel" Content="Remote machine is setup, now to debug already running process, just&#10;open main Debug menu and attach to: {0}&#10;And below button is to setup debug code from this VS window:" HorizontalAlignment="Left" Height="50" Padding="0" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="DeployInfo" Text="" Margin="46,115,46,60" Height="20" Padding="0" FontWeight="Bold" Foreground="#FF0477B3" IsReadOnly="True" BorderThickness="0"/>
+                        <TextBox x:Name="DeployError" Text="" Margin="46,140,46,35" Height="20" Padding="0" FontWeight="Bold" Foreground="Red" IsReadOnly="True" BorderThickness="0"/>
+                        <Button Content="Deploy Binaries" x:Name="Deploy" Margin="136,165,137,10" Height="20" Background="#FF7CCCEC" Click="Deploy_Click"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Border>
+</UserControl>
